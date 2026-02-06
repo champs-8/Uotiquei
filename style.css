@@ -24,12 +24,24 @@ body{
     
 }
 
+#topo{
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    width: 100%;
+    text-align: center;
+}
+
 #password-length-container{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     gap: 10px;
+}
+
+#pergunta {
+    font-size: 1.6em;
 }
 
 .length-button{
@@ -46,17 +58,15 @@ body{
 }
 
 #confirmButton{
-    font-size: 10px;
+    font-size: 1em;
     width: 10em;
     height: 2.5em;
-    font-size: 18px;
     text-align: center;
     margin: 5px;
     background-color: #007bff4f;
     color: white;
     border: none;
     border-radius: 8px;
-    cursor: pointer;
     transition: all 0.3s ease;
 }
 
@@ -67,24 +77,46 @@ body{
     border-radius: 5px;
     cursor: pointer;
     border: 2px solid var(--cor-primaria);
-    
-
+    font-size: 20px;
 }
 
-.digit-info{
+#tentativas{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#game-container{
+    display: flex;
+    width: 100vw;
+    flex-direction: row;
+    padding: 1.0em 2em;
+    gap: 20px;
+    justify-content: space-around;
+}
+
+
+
+/* vou configurar para quando for media query */
+/* #number{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+} */
+
+.digit-info, .digit-input {
     width: 40px;
     height: 40px;
     font-size: 24px;
     text-align: center;
     margin: 5px;
-}
-
-.digit-input {
-    width: 40px;
-    height: 40px;
-    font-size: 24px;
-    text-align: center;
-    margin: 5px;
+    background-color: white;
+    color: var(--cor-primaria);
+    border-radius: 5px;
+    cursor: pointer;
+    border: 2px solid var(--cor-primaria);
+    font-size: 20px;
 }
 
 /* remover as setas dos input number */
@@ -98,8 +130,22 @@ input[type=number] {
     appearance: textfield;
 }
 
-#topo{
+#confirm-play-button{
+    font-size: 1em;
+    width: 10em;
+    height: 2.5em;
+    text-align: center;
+    margin: 5px;
     background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+footer{
+    background-color: var(--cor-primaria);
+    font-size: 10px;
     color: white;
     padding: 10px 20px;
     width: 100%;

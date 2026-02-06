@@ -4,6 +4,8 @@
 const gameContainer = document.getElementById('game-container'); //div geral
 const keyLength = document.getElementById('keyLength'); //div botoes da quantidade de numeros da senha
 const confirmButton = document.getElementById('confirmButton'); //botao de confirmar quantidade de numeros da senha
+const tentativas = document.getElementById('tentativas'); //div que envolve as tentativas e o botão certo
+
 
 let numberEscolhido = 0; //variavel global para armazenar a quantidade de numeros da senha escolhida
 
@@ -94,8 +96,8 @@ function build(length) {
         });
     }
 
-    gameContainer.appendChild(numberDiv);
-    gameContainer.appendChild(confirmPlayButton);
+    gameContainer.appendChild(numberDiv); //insere os inputs para digitar os numeros da senha
+    tentativas.appendChild(confirmPlayButton); //insere o botão de Certo abaixo dos inputs
 
     //==========================
 
