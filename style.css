@@ -1,11 +1,21 @@
+:root {
+  --cor-primaria: #3498db;
+  --cor-de-fundo: #f0f0f0;
+  --cor-secundaria: #2ecc71;
+  --espacamento-padrao: 16px;
+  --fonte-principal: 'Arial', sans-serif;
+}
+
 *{
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    font-family: var(--fonte-principal);
 }
+
+
 body{
-    background-color: #f0f0f0;
+    background-color: var(--cor-de-fundo);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -13,8 +23,52 @@ body{
     height: 100vh;
     
 }
+
+#password-length-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.length-button{
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    text-align: center;
+    margin: 5px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
 #confirmButton{
+    font-size: 10px;
+    width: 10em;
+    height: 2.5em;
+    font-size: 18px;
+    text-align: center;
+    margin: 5px;
+    background-color: #007bff4f;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#confirmButton:not(:disabled) {
+    background-color: white;
+    color: var(--cor-primaria);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 2px solid var(--cor-primaria);
     
+
 }
 
 .digit-info{

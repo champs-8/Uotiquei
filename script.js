@@ -2,35 +2,43 @@
 //vou começar perguntando a quantidade de numeros da senha do amigo
 
 const gameContainer = document.getElementById('game-container'); //div geral
-const keyLength = document.getElementById('keyLength'); //botoes da quantidade de numeros da senha
+const keyLength = document.getElementById('keyLength'); //div botoes da quantidade de numeros da senha
 const confirmButton = document.getElementById('confirmButton'); //botao de confirmar quantidade de numeros da senha
 
+let numberEscolhido = 0; //variavel global para armazenar a quantidade de numeros da senha escolhida
 
 // Adicionando os botões para selecionar a quantidade de números da senha
 for (let i = 3; i <= 10; i++) {
     const button = document.createElement('button');
     button.textContent = i;
+    button.className = 'length-button';
     button.addEventListener('click', () => {
         console.log(`Quantidade de números da senha: ${i}`);
-        confirmButton.disabled = false;
-        confirmButton.onclick = () => play(i);
+
+        numberEscolhido = i; //armazena a quantidade de numeros da senha escolhida
+
+        confirmButton.disabled = false; //habilita o botão de confirmar quando um número é selecionado
+        confirmButton.onclick = () => play(numberEscolhido); //chama a função play passando a quantidade de numeros da senha selecionada
     });
     keyLength.appendChild(button);
 }
 
-function play(l) { 
+function play(l) {
     let containerPasswordLength = document.getElementById('password-length-container');
     containerPasswordLength.style.display = 'none';
 
     build(l);
 }
 
+
+const botaoCerto = document.createElement('button');
+botaoCerto.id = 'confirm-play-button';
+botaoCerto.textContent = 'V';
+
 function build(length) {
 
     //botão para confirmar a jogada
-    let confirmPlayButton = document.createElement('button');
-    confirmPlayButton.id = 'confirm-play-button';
-    confirmPlayButton.textContent = 'V';
+    let confirmPlayButton = botaoCerto;
     confirmPlayButton.disabled = true;
     
     //div de anotações ao lado dos inputs
@@ -89,7 +97,13 @@ function build(length) {
     gameContainer.appendChild(numberDiv);
     gameContainer.appendChild(confirmPlayButton);
 
-    confirmPlayButton.addEventListener('click', () => {
-        alert('A senha do amigo é: ' )
-    })
+    //==========================
+
+    confirmPlayButton.addEventListener("click", nextRodada); //chama função para pegar a quantidade de numeros da senha 
+
+    
+}
+
+function nextRodada() {
+    build(numberEscolhido); // constrói a próxima rodada com a mesma quantidade de números da senha
 }
