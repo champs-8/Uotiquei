@@ -47,19 +47,21 @@ function MyPass(qtd) {
     inputMyPass.min = 3;
     inputMyPass.id = 'input-my-pass';
 
+    
     myPass.appendChild(pergunta);
     myPass.appendChild(inputMyPass);
-
+    
     //=========================
     //botão para confirmar a senha do jogador
-
+    
     let confirmMyPassButton = document.createElement('button');
     confirmMyPassButton.id = 'confirm-my-pass-button';
     confirmMyPassButton.textContent = 'Confirmar';
     myPass.appendChild(confirmMyPassButton);
-
+    
     confirmMyPassButton.addEventListener("click", () => {
-        build(qtd); //chama a função para construir a interface do jogo, passando a quantidade de numeros da senha escolhida
+        let senhaPropria = inputMyPass.value; //variavel para armazenar a senha digitada pelo jogador
+        build(qtd, senhaPropria); //chama a função para construir a interface do jogo, passando a quantidade de numeros da senha escolhida
     });
 }
 
@@ -67,13 +69,19 @@ const botaoCerto = document.createElement('button');
 botaoCerto.id = 'confirm-play-button';
 botaoCerto.textContent = 'V';
 
-
 let contagemDeTentativas = 0; //variavel para aumentar o id da div de jogada
 
-function build(length) {
+function build(length, senhaPropria) {
 
     tentativas.style.display = 'flex'; //exibe a div de tentativas quando a primeira rodada for construída
     myPass.style.display = 'none'; //esconde a div de digitar a propria senha quando a primeira rodada for construída
+
+    //criar div para mostrar a senha do proprio jogador
+    let senhaMyDiv = document.createElement('div');
+    senhaMyDiv.id = 'senha-propria';
+    senhaMyDiv.innerHTML = `Sua senha: <span> ${senhaPropria} </span>`;
+    tentativas.insertBefore(senhaMyDiv, listTentativas); //insere a div da senha do jogador antes da div de tentativas
+
 
     //construir nova div game-container a cada rodada
     let gameContainer = document.createElement('div');
