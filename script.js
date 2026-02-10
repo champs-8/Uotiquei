@@ -13,7 +13,7 @@ document.addEventListener('dblclick', e => {
 
 let numberEscolhido = 0; //variavel global para armazenar a quantidade de numeros da senha escolhida
 
-// Adicionando os botões para selecionar a quantidade de números da senha
+// Adicionando os botões para selecionar a quantidade de números da senha do outro jogador
 for (let i = 3; i <= 10; i++) {
     const button = document.createElement('button');
     button.textContent = i;
@@ -61,7 +61,14 @@ function MyPass(qtd) {
     
     confirmMyPassButton.addEventListener("click", () => {
         let senhaPropria = inputMyPass.value; //variavel para armazenar a senha digitada pelo jogador
-        build(qtd, senhaPropria); //chama a função para construir a interface do jogo, passando a quantidade de numeros da senha escolhida
+        build(qtd); //chama a função para construir a interface do jogo, passando a quantidade de numeros da senha escolhida
+    
+        //criar div para mostrar a senha do proprio jogador
+        //não pode ser no build porque fica repetindo a cada rodada, tem que ser só uma vez
+        let senhaMyDiv = document.createElement('div');
+        senhaMyDiv.id = 'senha-propria';
+        senhaMyDiv.innerHTML = `Sua senha: <span> ${senhaPropria} </span>`;
+        tentativas.insertBefore(senhaMyDiv, listTentativas); //insere a div da senha do jogador antes da div de tentativas
     });
 }
 
@@ -71,16 +78,10 @@ botaoCerto.textContent = 'V';
 
 let contagemDeTentativas = 0; //variavel para aumentar o id da div de jogada
 
-function build(length, senhaPropria) {
+function build(length) {
 
     tentativas.style.display = 'flex'; //exibe a div de tentativas quando a primeira rodada for construída
     myPass.style.display = 'none'; //esconde a div de digitar a propria senha quando a primeira rodada for construída
-
-    //criar div para mostrar a senha do proprio jogador
-    let senhaMyDiv = document.createElement('div');
-    senhaMyDiv.id = 'senha-propria';
-    senhaMyDiv.innerHTML = `Sua senha: <span> ${senhaPropria} </span>`;
-    tentativas.insertBefore(senhaMyDiv, listTentativas); //insere a div da senha do jogador antes da div de tentativas
 
 
     //construir nova div game-container a cada rodada

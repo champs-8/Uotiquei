@@ -1,9 +1,9 @@
 :root {
-  --cor-primaria: #3498db;
-  --cor-de-fundo: #f0f0f0;
-  --cor-secundaria: #2ecc71;
-  --espacamento-padrao: 16px;
-  --fonte-principal: 'Arial', sans-serif;
+    --cor-primaria: #3498db;
+    --cor-de-fundo: #f0f0f0;
+    --cor-secundaria: #2ecc71;
+    --espacamento-padrao: 16px;
+    --fonte-principal: 'Arial', sans-serif;
 }
 
 *{
