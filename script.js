@@ -28,11 +28,11 @@ for (let i = 3; i <= 10; i++) {
     keyLength.appendChild(button);
 }
 
-function play(l) {
+function play(length) {
     let containerPasswordLength = document.getElementById('password-length-container');
     containerPasswordLength.style.display = 'none';
 
-    build(l);
+    build(length); //chama a função para construir a interface do jogo, passando a quantidade de numeros da senha escolhida
 }
 
 
@@ -67,7 +67,6 @@ function build(length) {
         
         // definindo atributos dos inputs
         certoOuErrado.className = 'digit-info';
-        certoOuErrado.type = 'number';
         certoOuErrado.inputMode = 'numeric';
         certoOuErrado.maxLength = 1;
         certoOuErrado.min = 0;
@@ -92,12 +91,16 @@ function build(length) {
         
         //definindo atributos dos inputs
         input.className = 'digit-input';
-        input.type = 'number';
         input.inputMode = 'numeric';
         input.maxLength = 1;
         input.min = 0;
         input.id = `digit-${i+1}`;
         numberDiv.appendChild(input);
+
+        //focus automático -
+        // pula pro próximo
+
+
         
         // garantir numeros de 0 a 9 e apenas 1 digito
         input.addEventListener("input", () => {
@@ -108,7 +111,15 @@ function build(length) {
             const todosPreenchidos = [...inputsAll].every(i => i.value !== "");
             confirmPlayButton.disabled = !todosPreenchidos;
         });
+
+        // backspace volta pro anterior
+        input.addEventListener('keydown', e => {
+            if (e.key === 'Backspace' && !input.value && i > 0) {
+                numberDiv.children[i - 1].focus();
+            }
+        });
     }
+    console.log(numberDiv);
 
     gameContainer.appendChild(numberDiv);
     
@@ -137,7 +148,9 @@ function blockInputs() { //função para bloquear os inputs da rodada atual
     });
     inputsInfo.forEach(input => {
         input.classList.add('bloqueado');
-        input.setAttribute("readonly", "true");
+        // input.setAttribute("readonly", "true");
+        // //decidi não bloquear os inputs de anotação para permitir que o jogador
+        // possa corrigir suas anotações mesmo após confirmar a jogada
     });
 }
 

@@ -126,6 +126,9 @@ body{
     border: 2px solid var(--cor-primaria);
     font-size: 20px;
 }
+.digit-info::before {
+    content: attr(data-label);
+}
 
 /* remover as setas dos input number */
 input[type=number]::-webkit-inner-spin-button,
