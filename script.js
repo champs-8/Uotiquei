@@ -72,9 +72,9 @@ function MyPass(qtd) {
     });
 }
 
-const botaoCerto = document.createElement('button');
-botaoCerto.id = 'confirm-play-button';
-botaoCerto.textContent = 'V';
+const confirmPlayButton = document.createElement('button');
+confirmPlayButton.id = 'confirm-play-button';
+confirmPlayButton.textContent = 'V';
 
 let contagemDeTentativas = 0; //variavel para aumentar o id da div de jogada
 
@@ -91,9 +91,13 @@ function build(length) {
     contagemDeTentativas++;
     listTentativas.appendChild(gameContainer); //insere a div do jogo dentro da div de tentativas
 
+    //faz a rolagem automática para a última rodada criada
+    listTentativas.scrollIntoView({
+    block: 'start',
+    behavior: 'smooth'
+});
 
-    //botão para confirmar a jogada
-    let confirmPlayButton = botaoCerto;
+
     confirmPlayButton.disabled = true;
     
     //div de anotações ao lado dos inputs
@@ -166,12 +170,11 @@ function build(length) {
     //insere os inputs para digitar os numeros da senha
     tentativas.appendChild(confirmPlayButton); //insere o botão de Certo abaixo dos inputs
 
-    confirmPlayButton.addEventListener("click", nextRodada); //chama função para pegar a quantidade de numeros da senha 
-
-    
+    confirmPlayButton.addEventListener("click", nextRodada);
 }
 
 function nextRodada() {
+
     blockInputs(); //bloqueia os inputs da rodada atual para não poder mais editar
     amareloOuVerde(); //ativa a função para alterar cor do botão de anotação
     build(numberEscolhido); // constrói a próxima rodada com a mesma quantidade de números da senha
