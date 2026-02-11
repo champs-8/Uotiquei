@@ -39,6 +39,9 @@ function play(length) {
 }
 
 function MyPass(qtd) {
+
+    myPass.style.display = 'flex'; //exibe a div para digitar a propria senha
+
     let pergunta = document.createElement('h1');
     let inputMyPass =  document.createElement('input');
 
@@ -49,7 +52,14 @@ function MyPass(qtd) {
     inputMyPass.min = 3;
     inputMyPass.id = 'input-my-pass';
 
-    
+    //usabilidade para digitar a senha e apertar enter
+    inputMyPass.addEventListener("keydown", e => {
+        if (e.key === "Enter") {
+            confirmMyPassButton.click();
+        }
+    });
+
+
     myPass.appendChild(pergunta);
     myPass.appendChild(inputMyPass);
     
@@ -59,8 +69,17 @@ function MyPass(qtd) {
     let confirmMyPassButton = document.createElement('button');
     confirmMyPassButton.id = 'confirm-my-pass-button';
     confirmMyPassButton.textContent = 'Confirmar';
+    confirmMyPassButton.disabled = true; //desabilita o botão de confirmar até que a senha seja digitada
     myPass.appendChild(confirmMyPassButton);
-    
+
+    inputMyPass.addEventListener("input", () => {
+        if(inputMyPass.value.length !== 0){ //verifica se a senha do jogador foi digitada
+            confirmMyPassButton.disabled = false; //habilita o botão de confirmar quando a senha é digitada
+        } else {
+            confirmMyPassButton.disabled = true; //desabilita o botão de confirmar quando a senha é apagada
+        }
+    });
+
     confirmMyPassButton.addEventListener("click", () => {
         let senhaPropria = inputMyPass.value; //variavel para armazenar a senha digitada pelo jogador
         build(qtd); //chama a função para construir a interface do jogo, passando a quantidade de numeros da senha escolhida
@@ -69,7 +88,7 @@ function MyPass(qtd) {
         //não pode ser no build porque fica repetindo a cada rodada, tem que ser só uma vez
         let senhaMyDiv = document.createElement('div');
         senhaMyDiv.id = 'senha-propria';
-        senhaMyDiv.innerHTML = `Sua senha: <span> ${senhaPropria} </span>`;
+        senhaMyDiv.innerHTML = `Sua senha: &nbsp<span> ${senhaPropria} </span>`;
         tentativas.insertBefore(senhaMyDiv, listTentativas); //insere a div da senha do jogador antes da div de tentativas
     });
 }
@@ -79,6 +98,24 @@ confirmPlayButton.id = 'confirm-play-button';
 confirmPlayButton.textContent = 'Anotar Tentativa';
 
 let contagemDeTentativas = 0; //variavel para aumentar o id da div de jogada
+
+//label para mostrar o rotulo tentativa
+let labelTentativas = document.createElement("div");
+labelTentativas.className = "tentativa-label";
+labelTentativas.textContent = `Tentativas`;
+
+//label para mostrar os icones de certo e errado
+let labelCertoErrado = document.createElement("div");
+labelCertoErrado.className = "certo-errado-label";
+labelCertoErrado.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" id="certo-icon" width="30"  height="30"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2.5"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M20 6L9 17l-5-5"/></svg> 
+<svg xmlns="http://www.w3.org/2000/svg" id="quase-icon" width="28"  height="28"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2.5"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>   <line x1="12" y1="9" x2="12" y2="13"/>   <line x1="12" y1="17" x2="12" y2="17"/></svg>`;
+
+let rotulos = document.createElement("div");
+rotulos.className = "rotulos";
+rotulos.appendChild(labelCertoErrado);
+rotulos.appendChild(labelTentativas);
+listTentativas.prepend(rotulos); //insere os rótulos antes da primeira tentativa
+
 
 function build(length) {
 
@@ -94,10 +131,11 @@ function build(length) {
     listTentativas.appendChild(gameContainer); //insere a div do jogo dentro da div de tentativas
 
     //faz a rolagem automática para a última rodada criada
-    listTentativas.scrollIntoView({
-    block: 'start',
+    listTentativas.scrollTo({
+    top: listTentativas.scrollHeight,
     behavior: 'smooth'
 });
+
 
 
     confirmPlayButton.disabled = true;
@@ -194,6 +232,7 @@ function build(length) {
     
     confirmPlayButton.addEventListener("click", nextRodada);
 }
+
 
 function nextRodada() {
 

@@ -4,6 +4,7 @@
     --cor-secundaria: #2ecc71;
     --espacamento-padrao: 16px;
     --fonte-principal: 'Arial', sans-serif;
+    --azul-forte: #007bff
 }
 
 *{
@@ -33,7 +34,7 @@ body{
     position: sticky;
     top: 0;
     z-index: 101;
-    background-color: #007bff;
+    background-color: var(--azul-forte);
     color: white;
     padding: 10px 20px;
     width: 100%;
@@ -59,7 +60,7 @@ body{
     font-size: 24px;
     text-align: center;
     margin: 5px;
-    background-color: #007bff;
+    background-color: var(--azul-forte);
     color: white;
     border: none;
     border-radius: 5px;
@@ -88,8 +89,58 @@ body{
     border: 2px solid var(--cor-primaria);
     font-size: 20px;
 }
+#myPass{
+    display: none;
+    font-size: 1.2em;
+    color: var(--azul-forte);
+    background-color: var(--cor-de-fundo);
+    padding: 1.5em;
+    width: 100%;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px
+}
+
+#input-my-pass{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    width: 30vw;
+    height: 8vh;
+    background-color: var(--cor-de-fundo);
+    border:none;
+    border-bottom: 2px solid black;
+    text-align: center;
+    transform: scaleY(1.5);
+}
+#input-my-pass:active, #input-my-pass:focus{
+    outline: none;
+    border-bottom: 2px solid var(--azul-forte);
+
+}
+
+#confirm-my-pass-button{
+    font-size: 1em;
+    width: 10em;
+    height: 2.5em;
+    text-align: center;
+    margin: 15px;
+    background-color: #007bff4f;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+#confirm-my-pass-button:not(:disabled) {
+    background-color: var(--azul-forte);
+}
 
 #app{
+    flex:1;
+    min-height: 0;
     display: flex;
     width: 100%;
     justify-content: center;
@@ -100,11 +151,13 @@ body{
 #tentativas{
     display: none;
     width: 100%;
-    height: calc(100vh - 180px);
+    flex:1;
+    /* height: calc(100vh - 180px); */
+    /* justify-content: flex-end; */
     flex-direction: column;
-    justify-content: flex-end;
     align-items: center;
     scrollbar-gutter: stable;
+    min-height: 0;
 }
 #senha-propria{
     width: 100%;
@@ -122,15 +175,47 @@ body{
 
 #list-tentativas{
     width: 100%;
+    height: fit-content;
     display: flex;
     flex: 1;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     transition: opacity 0.4s ease, transform 0.4s ease;
     overflow-y: auto;
     height: auto;
     scrollbar-gutter: stable;
+    min-height: 0;
+    
+}
+.rotulos{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    padding: 0.2em 0;
+    background-color: var(--cor-de-fundo);
+    position: sticky;
+    top: 0;
+}
+#certo-icon {
+    color: #2ecc71; /* verde */
+    margin: 0 .2em ;
+}
+
+#quase-icon {
+    color: #f1c40f; /* amarelo */
+    margin: 0 0em 0 .6em ;
+}
+
+.certo-errado-label{
+    font-size: 1.2em;
+    color: var(--cor-primaria);
+    margin-right: 1.3em;
+}
+.tentativa-label{
+    font-size: 1.2em;
+    color: var(--cor-primaria);
+    margin-right: 1em;
 }
 
 .game-container{
