@@ -305,7 +305,24 @@ input[type=number] {
 #confirm-play-button:disabled{
     margin: 1.5em;
 }
-
+#painel-auxilio {
+    position: fixed;
+    right: 2em;
+    bottom: 10em;
+    background: white;
+    border: 2px solid #3498db;
+    padding: 15px;
+    border-radius: 10px;
+    z-index: 999;
+}
+#btn-auxilio{
+    display:none;
+    width: 60px;
+    height: 60px;
+    font-size: 15px;
+    border: 1px solid var(--azul-forte);
+    border-radius: 50%;
+}
 footer{
     background-color: var(--cor-primaria);
     font-size: 10px;

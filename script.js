@@ -90,6 +90,10 @@ function MyPass(qtd) {
         senhaMyDiv.id = 'senha-propria';
         senhaMyDiv.innerHTML = `Sua senha: &nbsp<span> ${senhaPropria} </span>`;
         tentativas.insertBefore(senhaMyDiv, listTentativas); //insere a div da senha do jogador antes da div de tentativas
+        
+
+        //exibe o botão de auxílio para o jogador poder usar a calculadora de certo e errado
+        document.getElementById('btn-auxilio').style.display = 'block';
     });
 }
 
@@ -230,9 +234,11 @@ function build(length) {
     //insere os inputs para digitar os numeros da senha
     app.appendChild(confirmPlayButton); //insere o botão de Certo abaixo dos inputs
     
-    confirmPlayButton.addEventListener("click", nextRodada);
-}
+    confirmPlayButton.onclick = nextRodada;
 
+    let senhaPropria = document.getElementById('input-my-pass').value; //variavel para armazenar a senha digitada pelo jogador, precisa ser declarada aqui para pegar o valor atualizado da senha do jogador a cada rodada
+    criarAuxilio(length,senhaPropria);
+}
 
 function nextRodada() {
 
@@ -277,3 +283,114 @@ function amareloOuVerde(){
         });
     });
 }
+
+// == div para criar o botão auxilio ==
+// esse botão servirá para quando o adversário
+// informar a tentativa dele, o usuário
+// possa informar corretamente o que está
+// certo e errado
+
+const painel = document.createElement("div");
+const footer = document.querySelector("footer");
+painel.id = "painel-auxilio";
+painel.style.display = "none"; //esconde o painel de auxílio inicialmente
+footer.before(painel);
+
+const btnAuxilio = document.createElement("button");
+btnAuxilio.textContent = "🔐 Auxílio";
+btnAuxilio.style.position = "fixed";
+btnAuxilio.style.bottom = "2em";
+btnAuxilio.style.right = "2em";
+btnAuxilio.id = "btn-auxilio";
+
+document.body.appendChild(btnAuxilio);
+
+btnAuxilio.addEventListener("click", () => {
+    painel.style.display =
+        painel.style.display === "none" ? "block" : "none";
+
+
+        // quando o painel de auxílio for aberto,
+        // limpa os inputs para o usuário poder digitar a tentativa do
+        // adversário e analisar o que está certo ou errado
+        if(painel.style.display === "block"){
+            document.getElementById("input-auxilio").value = "";
+            document.getElementById("resultado-auxilio").textContent = "";
+        }
+
+        //foca automaticamente no input do painel de auxílio quando ele for aberto
+        document.getElementById("input-auxilio").focus();
+});
+
+
+function criarAuxilio(tamanhoSenha, senha) {
+
+    console.log(`tamanho:${tamanhoSenha}`);
+    console.log(`mypass:${senha}`);
+
+    const input = document.createElement("input");
+    input.id = "input-auxilio";
+    input.maxLength = tamanhoSenha;
+
+    
+    const resultado = document.createElement("div");
+    resultado.id = "resultado-auxilio";
+    
+    const btn = document.createElement("button");
+    btn.textContent = "Conferir";
+    
+    btn.onclick = () => {
+        const tentativa = input.value;
+        const analise = analisarTentativa(senha, tentativa);
+        
+        resultado.textContent =
+        `Certos: ${analise.certos} | Fora: ${analise.errados}`;
+    };
+
+    painel.appendChild(input);
+    painel.appendChild(btn);
+    painel.appendChild(resultado);
+}
+
+function analisarTentativa(senha, tentativa) {
+
+    // transformar em arrays
+    const senhaArray = senha.split('');
+    const tentativaArray = tentativa.split('');
+
+    let certos = 0;
+    let errados = 0;
+
+    // arrays para controlar o que já foi usado
+    const usadosSenha = new Array(senhaArray.length).fill(false);
+    const usadosTentativa = new Array(tentativaArray.length).fill(false);
+
+    // Primeiro passo: contar os que estão na posição correta
+    for (let i = 0; i < senhaArray.length; i++) {
+        if (tentativaArray[i] === senhaArray[i]) {
+            certos++;
+            usadosSenha[i] = true;
+            usadosTentativa[i] = true;
+        }
+    }
+
+    // Segundo passo: contar os corretos fora da posição
+    for (let i = 0; i < tentativaArray.length; i++) {
+
+        if (usadosTentativa[i]) continue;
+
+        for (let j = 0; j < senhaArray.length; j++) {
+
+            if (usadosSenha[j]) continue;
+
+            if (tentativaArray[i] === senhaArray[j]) {
+                errados++;
+                usadosSenha[j] = true;
+                break;
+            }
+        }
+    }
+
+    return { certos, errados };
+}
+
