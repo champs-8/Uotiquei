@@ -88,13 +88,13 @@ function MyPass(qtd) {
             confirmMyPassButton.disabled = true; //desabilita o botão de confirmar quando a senha é apagada
         }
     });
+    
 
     confirmMyPassButton.addEventListener("click", () => {
         senhaGlobal = inputMyPass.value; //variavel para armazenar a senha digitada pelo jogador
         build(qtd); //chama a função para construir a interface do jogo, passando a quantidade de numeros da senha escolhida
     
         criarAuxilio(qtd, senhaGlobal);
-        let auxilioCriado = false; //para evitar de chamar duas vezes
 
         //criar div para mostrar a senha do proprio jogador
         //não pode ser no build porque fica repetindo a cada rodada, tem que ser só uma vez
@@ -335,6 +335,8 @@ btnAuxilio.addEventListener("click", () => {
         //foca automaticamente no input do painel de auxílio quando ele for aberto
         document.getElementById("input-auxilio").focus();
 });
+
+let auxilioCriado = false; //para evitar de chamar mais de uma vez a função auxilio
 
 
 //auxilio na tela tentativas

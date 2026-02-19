@@ -2,9 +2,10 @@
 
 Todas as mudanças importantes deste projeto serão documentadas aqui.
 
+
 ---
 
-## [1.2.0] - 2026-02-19
+## [1.2.1] - 2026-02-19
 ### Added
 - Painel de auxílio para calcular certos e errados
 
